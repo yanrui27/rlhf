@@ -59,5 +59,6 @@ if __name__ == "__main__":
         kkk +=1 
 
     
-    logging.info(f"存储去重结果到文件:\t{SAVE_FILE}\n\n最终存储数据个数:\t{len(input_json_data)}(/{data_ntotal})")    
-    open(SAVE_FILE,"w").wirte("".join(input_json_data)).close()
+    logging.info(f"存储去重结果到文件:\t{SAVE_FILE}")    
+    logging.info(f"最终存储数据个数:\t{len(input_json_data)}(/{data_ntotal})")
+    open(SAVE_FILE,"w").write("".join(input_json_data))

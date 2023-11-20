@@ -21,13 +21,14 @@ if __name__ == "__main__":
             },
             open(f"checkpoint.pkl","wb"))
         
-        print(f"Round{kkk} 开始过滤～")
+        print(f"Round{kkk} 开始建立faiss索引！")
         quantizer = faiss.IndexFlatL2(768)  
         index = faiss.IndexIVFFlat(quantizer, 768, 1000, faiss.METRIC_INNER_PRODUCT)
         index.train(embeddings)
         index.add(embeddings)                
         index.nprobe = 10   
 
+        print(f"Round{kkk} 开始查找相似向量！")
         del_list = []           
         D, I = index.search(embeddings, 2)
         for (i, j), s in zip(I[:,:2],D[:,1]):
@@ -37,13 +38,14 @@ if __name__ == "__main__":
 
         if del_list == []:
             break
-
+        
+        print(f"Round{kkk} 开始去重！")
         for idx in sorted(del_list, reverse=True):
             embeddings = np.delete(embeddings, idx, axis=0)
             del prompt_list[idx]
             del input_json_data[idx]
 
-        print(f"Round{kkk} 过滤去除{len(del_list)}个prompt～\n")
+        print(f"Round{kkk} 成功过滤{len(del_list)}个prompt！\n")
         kkk +=1 
 
         

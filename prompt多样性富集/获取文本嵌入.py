@@ -14,7 +14,7 @@ def get_prompt(data):
         break
     return prompt
 
-DATA_FILE = "10w.json"
+DATA_FILE = "train_3.5M_CN.json"
 SAVE_FILE = "k_sft_embeddings.pkl"
 
 if __name__ =="__main__":
